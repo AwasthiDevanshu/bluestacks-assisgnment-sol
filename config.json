@@ -1,0 +1,9 @@
+{
+  "dbconfig": {
+    "driver": "mysql",
+    "user": "username",
+    "database": "dbname",
+    "password": "password",
+    "host":"host"
+  }
+}
