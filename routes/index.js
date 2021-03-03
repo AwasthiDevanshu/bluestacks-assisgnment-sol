@@ -89,9 +89,11 @@ getTrendingVid = async function () {
   videoObjList = html.data.split("videoRenderer");
   videoObjList.shift();
   videoObjList = videoObjList.map(function (vidObj) {
+  
     vidObj = vidObj.replace('":', "",);
     vidObj = vidObj.split(',{"thumbnailOverlayNowPlayingRenderer":{"text":{"runs":[{"text":"Now playing"}]}}}')[0];
     vidObj += ']}';
+    vidObj = vidObj.replace('},{"]}', "",);
     //return vidObj;
     return JSON.parse(vidObj);
 
