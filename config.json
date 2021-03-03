@@ -1,9 +1,0 @@
-{
-  "dbconfig": {
-    "driver": "mysql",
-    "user": "bluestacks_demo",
-    "database": "bluestacks_demo",
-    "password": "HsTazebCywhb4K8e",
-    "host":"5.189.135.178"
-  }
-}
