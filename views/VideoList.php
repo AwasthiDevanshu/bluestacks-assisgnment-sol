@@ -28,12 +28,14 @@
     ?>
     <script>
         function refreshVideos() {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                location.reload();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("List updated, refresh page");
+                }
             };
-            xhr.open('POST', '/videos');
-            xhr.send()
+            xhttp.open('POST', '/videos');
+            xhttp.send()
         }
     </script>
 </body>

@@ -56,16 +56,20 @@ router.post('/videos', function (req, res, next) {
   getTrendingVid().then(
     function (videoList) {
       videoList.forEach(video => {
-        console.log(video);
+        let vidDescription = "";
+        if(video.descriptionSnippet != undefined){
+          vidDescription = video.descriptionSnippet.runs[0].text;
+        }
         TrendingVideo.upsert(
           {
             videoId: video.videoId,
             vidTitle: video.title.runs[0].text,
-            vidDescription: video.descriptionSnippet.runs[0].text,
+            vidDescription: vidDescription,
             viewCount: video.viewCountText.simpleText,
             chTitle: video.ownerText.runs[0].text,
             vidThumb: video.thumbnail.thumbnails
           },
+        ) .catch(function (err) { console.log(err); }
         );
       })
     }
@@ -73,7 +77,8 @@ router.post('/videos', function (req, res, next) {
     .catch(function (err) { console.log(err); }
     );
   res.status(200);
-  return res;
+  res.send(req.body);
+  res.status(201);
 });
 
 module.exports = router;
@@ -93,7 +98,7 @@ getTrendingVid = async function () {
     vidObj = vidObj.replace('":', "",);
     vidObj = vidObj.split(',{"thumbnailOverlayNowPlayingRenderer":{"text":{"runs":[{"text":"Now playing"}]}}}')[0];
     vidObj += ']}';
-    vidObj = vidObj.replace('}},{"]}', "",);
+    vidObj = vidObj.replace('},{"]}', "",);
     //return vidObj;
     return JSON.parse(vidObj);
 
